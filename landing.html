@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NeoCity Recruitment Brief - Neon Serpents</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         /* ========== BASE RESET & FONTS ========== */
         * {
@@ -228,102 +229,338 @@
             }
         }
 
-        .animated-card {
-            width: 100%;
-            max-width: 500px;
-            height: 500px;
+        /* Cyberpunk Card Styles */
+        .cyberpunk-card {
             position: relative;
-            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 255, 255, 0.1));
-            border: 2px solid #ff00ff;
-            border-radius: 12px;
-            box-shadow: 0 0 30px rgba(255, 0, 255, 0.5), 0 0 60px rgba(0, 255, 255, 0.3);
-            animation: pulse-card 3s ease-in-out infinite;
-            overflow: hidden;
-        }
-
-        @keyframes pulse-card {
-            0%, 100% {
-                box-shadow: 0 0 30px rgba(255, 0, 255, 0.5), 0 0 60px rgba(0, 255, 255, 0.3);
-                transform: scale(1);
-            }
-            50% {
-                box-shadow: 0 0 50px rgba(255, 0, 255, 0.8), 0 0 100px rgba(0, 255, 255, 0.6);
-                transform: scale(1.02);
-            }
-        }
-
-        /* Glitch overlay on card */
-        .animated-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 0, 255, 0.3),
-                transparent
-            );
-            animation: glitch-sweep 4s infinite;
+            max-width: 400px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(30, 30, 35, 0.9) 0%, rgba(15, 15, 20, 0.95) 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            z-index: 1;
+            animation: cardReveal 1.5s forwards;
         }
 
-        @keyframes glitch-sweep {
-            0%, 100% { left: -100%; }
-            50% { left: 100%; }
+        @keyframes cardReveal {
+            0% {
+                transform: translateY(0) rotateY(180deg) scale(0.5);
+                opacity: 0;
+            }
+            30% {
+                transform: translateY(-30px) rotateY(180deg) scale(1.1);
+            }
+            60% {
+                transform: translateY(-10px) rotateY(0deg) scale(1.05);
+            }
+            100% {
+                transform: translateY(0) rotateY(0deg) scale(1);
+                opacity: 1;
+            }
         }
 
-        /* Grid pattern inside card */
-        .animated-card::after {
+        .cyberpunk-card::before {
             content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-            animation: grid-scroll 10s linear infinite;
+            background: 
+                linear-gradient(90deg, rgba(0, 255, 255, 0.07) 1px, transparent 1px) 0 0 / 20px 20px,
+                linear-gradient(0deg, rgba(0, 255, 255, 0.07) 1px, transparent 1px) 0 0 / 20px 20px,
+                linear-gradient(90deg, rgba(255, 0, 102, 0.05) 1px, transparent 1px) 0 0 / 100px 100px,
+                linear-gradient(0deg, rgba(255, 0, 102, 0.05) 1px, transparent 1px) 0 0 / 100px 100px;
+            z-index: -1;
         }
 
-        @keyframes grid-scroll {
-            from { transform: translate(0, 0); }
-            to { transform: translate(20px, 20px); }
+        .cyberpunk-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 2px);
+            pointer-events: none;
+            z-index: 4;
         }
 
-        /* Center logo/text in card */
-        .card-content {
-            position: relative;
+        .cyberpunk-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+        }
+
+        .cyberpunk-card .sweep {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 111, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+            pointer-events: none;
             z-index: 2;
+        }
+
+        .cyberpunk-card:hover .sweep {
+            transform: translateX(100%);
+        }
+
+        .circuit-paths {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.12;
+            pointer-events: none;
+            transition: opacity 0.3s ease, filter 0.3s ease;
+        }
+
+        .cyberpunk-card:hover .circuit-paths {
+            opacity: 0.25;
+            filter: drop-shadow(0 0 5px #0ff);
+        }
+
+        .city-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 45%;
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgMTAwIj48cGF0aCBkPSJNMCw5OSBMMCw2MCBMNSw2MCBMNSw3MCBMMTAsNzAgTDEwLDUwIEwxNSw1MCBMMTUsODAgTDIwLDgwIEwyMCw2NSBMMjUsNjUgTDI1LDkwIEwzMCw5MCBMMzAsODUgTDM1LDg1IEwzNSw5NSBMNDA5NSBMNDAsNzAgTDQ1LDcwIEw0NSw4MCBMNTA4MCBMNTAsNTUgTDU1LDU1IEw1NSw2NSBMNjAsNjUgTDYwLDQ1IEw2NSw0NSBMNjUsNzUgTDcwLDc1IEw3MCw1MCBMNzUsNTAgTDc1LDcwIEw4MCw3MCBMODAsNjUgTDg1LDY1IEw4NSw4MCBMOTAsODAgTDkwLDc1IEw5NSw3NSBMOTUsODUgTDEwMCw4NSBMMTAwLDY1IEwxMDUsNjUgTDEwNSw4NSBMMTEwLDg1IEwxMTAsNzUgTDExNSw3NSBMMTE1LDgwIEwxMjAsODAgTDEyMCw3MCBMMTI1LDcwIEwxMjUsNTAgTDEzMCw1MCBMMTMwLDY1IEwxMzUsNjUgTDEzNSw4NSBMMTQwLDg1IEwxNDAsNzUgTDE0NSw3NSBMMTQ1LDgwIEwxNTAsODAgTDE1MCw2NSBMMTU1LDY1IEwxNTUsOTAgTDE2MCw5MCBMMTYwLDgwIEwxNjUsODAgTDE2NSw3MCBMMTG1LDcwIEwxNzAsNTUgTDE3NSw1NSBMMTc1LDc1IEwxODAsNzUgTDE4MCw2NSBMMTG1LDY1IEwxODUsOTAgTDE5MCw5MCBMMTkwLDgwIEwxOTUsODAgTDE5NSw3MCBMMjAwLDcwIEwyMDAsNjAgTDIwNSw2MCBMMjA1LDg1IEwyMTAsODUgTDIxMCw2NSBMMjE1LDY1IEwyMTUsNzUgTDIyMCw3NSBMMjIwLDY1IEwyMjUsNjUgTDIyNSw4NSBMMjMwLDg1IEwyMzAsNzUgTDIzNSw3NSBMMjM1LDY1IEwyNDAsNjUgTDI0MCw4MCBMMjQ1LDgwIEwyNDUsNzAgTDI1MCw3MCBMMjUwLDc1IEwyNTUsNzUgTDI1NSw2NSBMMjYwLDY1IEwyNjAsODAgTDI2NSw4MCBMMjY1LDc1IEwyNzAsNzUgTDI3MCw2NSBMMjc1LDY1IEwyNzUsNzAgTDI4MCw3MCBMMjgwLDc1IEwyODUsNzUgTDI4NSw5MCBMMjkwLDkwIEwyOTAsOTUgTDI5NSw5NSBMMjk1LDc1IEwzMDAsNzUgTDMwMCw5OSBaIiBmaWxsPSIjMTExIj48L3BhdGg+PC9zdmc+");
+            background-repeat: repeat-x;
+            background-position: bottom;
+            opacity: 0.6;
+            z-index: 1;
+            transform: translateZ(-10px);
+            transition: opacity 0.3s ease;
+        }
+
+        .cyberpunk-card:hover .city-bg {
+            opacity: 0.8;
+        }
+
+        .card-content-cyber {
+            position: relative;
+            padding: 20px;
             height: 100%;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            z-index: 3;
+        }
+
+        .card-header {
+            position: relative;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .card-content h3 {
-            font-size: 2rem;
-            color: #ff00ff;
-            text-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff;
-            margin-bottom: 1rem;
-            animation: glow-pulse 2s ease-in-out infinite;
+        .card-title {
+            font-family: "Orbitron", sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+            background: linear-gradient(90deg, #ff0066, #00ffff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
         }
 
-        @keyframes glow-pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        .cyberpunk-card:hover .card-title {
+            text-shadow: 0 0 15px rgba(0, 255, 255, 1);
+            letter-spacing: 3px;
         }
 
-        .card-content p {
-            color: #00ffff;
-            font-size: 1rem;
-            text-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+        .card-subtitle {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 25px;
+            text-shadow: 0 0 5px rgba(150, 150, 150, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .cyberpunk-card:hover .card-subtitle {
+            color: #ccc;
+        }
+
+        .card-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #b8b8b8;
+            text-shadow: 0 0 5px rgba(200, 200, 200, 0.3);
+            margin-bottom: 20px;
+            z-index: 3;
+        }
+
+        .hologram {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, rgba(255, 0, 102, 0.2) 100%);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            z-index: 4;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+            opacity: 0.7;
+        }
+
+        .cyberpunk-card:hover .hologram {
+            transform: rotate(30deg);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+            opacity: 1;
+        }
+
+        .hologram::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            animation: hologramShine 2s linear infinite;
+        }
+
+        @keyframes hologramShine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 0, 102, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .cyberpunk-card:hover .glow {
+            opacity: 1;
+        }
+
+        .card-lines {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff0066, transparent, #00ffff, transparent, #ff0066);
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            z-index: 3;
+        }
+
+        .card-lines.top {
+            top: 10px;
+        }
+
+        .card-lines.bottom {
+            bottom: 10px;
+        }
+
+        .cyberpunk-card:hover .card-lines {
+            opacity: 1;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+        }
+
+        .rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .rain span {
+            position: absolute;
+            width: 1px;
+            height: 30px;
+            background: linear-gradient(transparent, #0ff);
+            animation: rain 1.5s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes rain {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            70% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        .holo-data {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+            z-index: 5;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+        }
+
+        .cyberpunk-card.active .holo-data {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+
+        .cyberpunk-card.glitching .card-content-cyber {
+            animation: glitch 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-10px) translateX(5px);
+            }
+        }
+
+        .circuit-node {
+            transition: all 0.3s ease;
         }
 
         /* ========== CTA BUTTON SECTION ========== */
@@ -466,13 +703,48 @@
 
             <!-- Right Column: Animated Visual -->
             <section class="visual-column" aria-label="Decorative animated display">
-                <div class="animated-card">
-                    <div class="card-content">
-                        <h3>SECURE NETWORK</h3>
-                        <p>⬢ ENCRYPTED ⬢</p>
-                        <p>⬡ GRID ONLINE ⬡</p>
-                        <p>◬ AWAITING INPUT ◬</p>
+                <div class="cyberpunk-card" id="cyberpunkCard">
+                    <div class="rain" id="rain"></div>
+                    <div class="city-bg"></div>
+                    <div class="glow"></div>
+                    <div class="sweep"></div>
+                    <div class="card-lines top"></div>
+                    <div class="card-lines bottom"></div>
+                    <div class="circuit-paths">
+                        <svg width="100%" height="100%" viewBox="0 0 340 480" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20,20 L100,20 L100,100 L180,100 L180,50 L220,50 L220,150 L260,150 L260,200 L320,200" stroke="#0ff" stroke-width="1" fill="none"></path>
+                            <path d="M20,80 L60,80 L60,140 L100,140 L100,200 L140,200 L140,240 L200,240 L200,300 L260,300 L260,340 L320,340" stroke="#0ff" stroke-width="1" fill="none"></path>
+                            <path d="M20,160 L50,160 L50,220 L90,220 L90,280 L130,280 L130,380 L200,380 L200,420 L320,420" stroke="#ff0066" stroke-width="1" fill="none"></path>
+                            <path d="M320,20 L250,20 L250,60 L200,60 L200,120 L160,120 L160,180 L120,180 L120,230 L20,230" stroke="#ff0066" stroke-width="1" fill="none"></path>
+                            <path d="M320,120 L280,120 L280,200 L240,200 L240,250 L180,250 L180,320 L120,320 L120,370 L20,370" stroke="#0ff" stroke-width="1" fill="none"></path>
+                            <circle cx="100" cy="100" r="5" fill="#0ff" class="circuit-node"></circle>
+                            <circle cx="200" cy="240" r="5" fill="#0ff" class="circuit-node"></circle>
+                            <circle cx="130" cy="380" r="5" fill="#ff0066" class="circuit-node"></circle>
+                            <circle cx="160" cy="120" r="5" fill="#ff0066" class="circuit-node"></circle>
+                            <circle cx="240" cy="200" r="5" fill="#0ff" class="circuit-node"></circle>
+                        </svg>
                     </div>
+                    <div class="holo-data">
+                        <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="80" fill="none" stroke="#0ff" stroke-width="1" opacity="0.3"></circle>
+                            <circle cx="100" cy="100" r="60" fill="none" stroke="#0ff" stroke-width="1" opacity="0.5"></circle>
+                            <circle cx="100" cy="100" r="40" fill="none" stroke="#ff0066" stroke-width="1" opacity="0.7"></circle>
+                            <line x1="20" y1="100" x2="180" y2="100" stroke="#0ff" stroke-width="1" opacity="0.5"></line>
+                            <line x1="100" y1="20" x2="100" y2="180" stroke="#0ff" stroke-width="1" opacity="0.5"></line>
+                            <path d="M100,60 L120,80 L140,70 L160,90 L180,80" stroke="#ff0066" stroke-width="2" fill="none"></path>
+                            <path d="M100,60 L80,90 L60,75 L40,110 L20,100" stroke="#0ff" stroke-width="2" fill="none"></path>
+                        </svg>
+                    </div>
+                    <div class="card-content-cyber">
+                        <div class="card-header">
+                            <div class="card-title">NEON SERPENTS</div>
+                            <div class="card-subtitle">NEURAL NET ACTIVATED</div>
+                        </div>
+                        <div class="card-description">
+                            Click to reveal encrypted data streams and activate holographic interface protocols.
+                        </div>
+                    </div>
+                    <div class="hologram"></div>
                 </div>
             </section>
         </main>
@@ -491,6 +763,7 @@
         (function() {
             'use strict';
 
+            // CTA Button functionality
             const ctaButton = document.getElementById('ctaButton');
 
             ctaButton.addEventListener('click', function(e) {
@@ -512,6 +785,132 @@
                     ctaButton.click();
                 }
             });
+
+            // Cyberpunk Card functionality
+            const rain = document.getElementById("rain");
+            const createRain = () => {
+                const numberOfDrops = 20;
+
+                for (let i = 0; i < numberOfDrops; i++) {
+                    const drop = document.createElement("span");
+                    drop.style.left = Math.random() * 100 + "%";
+                    drop.style.animationDuration = Math.random() * 0.5 + 1 + "s";
+                    drop.style.animationDelay = Math.random() * 5 + "s";
+                    rain.appendChild(drop);
+                }
+            };
+
+            createRain();
+
+            document.querySelectorAll(".circuit-node").forEach((node) => {
+                node.innerHTML = `<animate attributeName="r" values="2;5;2" dur="${
+                    1 + Math.random() * 2
+                }s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.3;1;0.3" dur="${
+                    1 + Math.random() * 2
+                }s" repeatCount="indefinite" />`;
+            });
+
+            const card = document.getElementById("cyberpunkCard");
+            let isRevealed = false;
+            let isAnimating = false;
+
+            card.addEventListener("click", () => {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                card.classList.add("glitching");
+
+                setTimeout(() => {
+                    card.classList.remove("glitching");
+                }, 300);
+
+                if (!isRevealed) {
+                    card.classList.add("active");
+
+                    const holoData = card.querySelector(".holo-data");
+
+                    for (let i = 0; i < 10; i++) {
+                        const dataBit = document.createElement("div");
+                        dataBit.style.position = "absolute";
+                        dataBit.style.color = Math.random() > 0.5 ? "#0ff" : "#ff0066";
+                        dataBit.style.fontSize = `${Math.random() * 10 + 8}px`;
+                        dataBit.style.opacity = "0.7";
+                        dataBit.style.fontFamily = "monospace";
+                        dataBit.style.top = `${Math.random() * 100}%`;
+                        dataBit.style.left = `${Math.random() * 100}%`;
+                        dataBit.textContent =
+                            Math.random() > 0.5
+                                ? Math.floor(Math.random() * 9999)
+                                : Math.random() > 0.5
+                                ? "10110"
+                                : "01001";
+
+                        dataBit.style.animation = `floating ${
+                            Math.random() * 3 + 2
+                        }s ease-in-out infinite`;
+
+                        holoData.appendChild(dataBit);
+                    }
+                } else {
+                    card.classList.remove("active");
+
+                    const holoData = card.querySelector(".holo-data");
+                    while (holoData.childElementCount > 1) {
+                        holoData.removeChild(holoData.lastChild);
+                    }
+                }
+
+                isRevealed = !isRevealed;
+
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 500);
+            });
+
+            card.addEventListener("mousemove", (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+                card.style.transform = `translateY(-10px) rotateX(${y * 10}deg) rotateY(${
+                    x * -10
+                }deg)`;
+
+                const glow = card.querySelector(".glow");
+                glow.style.background = `radial-gradient(circle at ${
+                    e.clientX - rect.left
+                }px ${e.clientY - rect.top}px, rgba(0, 255, 255, 0.3) 0%, transparent 70%)`;
+
+                if (Math.abs(x) > 0.2 || Math.abs(y) > 0.2) {
+                    document.querySelectorAll(".circuit-node").forEach((node) => {
+                        const nodeX = parseFloat(node.getAttribute("cx"));
+                        const nodeY = parseFloat(node.getAttribute("cy"));
+
+                        const distX = e.clientX - rect.left - nodeX;
+                        const distY = e.clientY - rect.top - nodeY;
+                        const dist = Math.sqrt(distX * distX + distY * distY);
+
+                        if (dist < 100) {
+                            node.setAttribute("r", 8);
+                            node.style.filter = "drop-shadow(0 0 5px currentColor)";
+                        } else {
+                            node.setAttribute("r", 5);
+                            node.style.filter = "none";
+                        }
+                    });
+                }
+            });
+
+            card.addEventListener("mouseleave", () => {
+                card.style.transform = "translateY(-10px) rotateX(5deg)";
+
+                document.querySelectorAll(".circuit-node").forEach((node) => {
+                    node.setAttribute("r", 5);
+                    node.style.filter = "none";
+                });
+            });
+
         })();
     </script>
 </body>
