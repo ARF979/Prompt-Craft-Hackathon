@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoCity Network - Access Denied</title>
+    <link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            line-height: 1.5;
+            font-family: "PT Mono", "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+            font-size: 16px;
+            overflow: hidden;
+        }
+
+        .terminal {
+            width: 100vw;
+            height: 100vh;
+            background: #1e1e1e;
+            box-shadow: inset 0 0 1em 0 #141414;
+        }
+
+        .screen {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 96vw;
+            height: 96vh;
+            padding: 2em;
+            overflow: hidden;
+            color: #14fdce;
+            background: #031e11;
+            border-radius: 1em;
+            box-shadow: inset 0 0 1em 0 #020f08;
+        }
+
+        .screen::before,
+        .screen::after {
+            content: "";
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: block;
+            pointer-events: none;
+        }
+
+        /* CRT Scanlines */
+        .screen::before {
+            background: linear-gradient(
+                to bottom,
+                rgba(30, 30, 30, 0.2),
+                rgba(30, 30, 30, 0.2) 50%,
+                rgba(30, 30, 30, 0.4) 50%,
+                rgba(30, 30, 30, 0.4)
+            );
+            background-size: 100% 2px;
+        }
+
+        /* Flicker Effect */
+        .screen::after {
+            opacity: 0;
+            background: rgba(18, 16, 16, 0.1);
+            animation: flicker 0.2s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.27861; }
+            4% { opacity: 0.34769; }
+            8% { opacity: 0.23604; }
+            12% { opacity: 0.90626; }
+            16% { opacity: 0.18128; }
+            20% { opacity: 0.83891; }
+            24% { opacity: 0.65583; }
+            28% { opacity: 0.67807; }
+            32% { opacity: 0.26559; }
+            36% { opacity: 0.84693; }
+            40% { opacity: 0.96019; }
+            44% { opacity: 0.08594; }
+            48% { opacity: 0.20313; }
+            52% { opacity: 0.71988; }
+            56% { opacity: 0.53455; }
+            60% { opacity: 0.37288; }
+            64% { opacity: 0.71428; }
+            68% { opacity: 0.70419; }
+            72% { opacity: 0.7003; }
+            76% { opacity: 0.36108; }
+            80% { opacity: 0.24387; }
+            84% { opacity: 0.6932; }
+            88% { opacity: 0.56769; }
+            92% { opacity: 0.0647; }
+            96% { opacity: 0.98657; }
+            100% { opacity: 0.08759; }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Glitch text effect */
+        .glitch {
+            animation: glitch-text 0.3s infinite;
+        }
+
+        @keyframes glitch-text {
+            0% {
+                text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                            -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                            -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            14% {
+                text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                            -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                            -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            15% {
+                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
+                            0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
+                            -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
+                            0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
+                            -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            50% {
+                text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
+                            0.05em 0 0 rgba(0, 255, 0, 0.75),
+                            0 -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            99% {
+                text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
+                            0.05em 0 0 rgba(0, 255, 0, 0.75),
+                            0 -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            100% {
+                text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75),
+                            -0.025em -0.025em 0 rgba(0, 255, 0, 0.75),
+                            -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+        }
+
+        .warning {
+            color: #ff0040;
+            font-weight: bold;
+        }
+
+        .timer {
+            color: #ffff00;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="screen">
+            <div class="content"></div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            const element = document.querySelector('.content');
+            const message = `⚠️ WARNING: Unauthorized access to the NeoCity network detected. Disconnect immediately.
+
+Neural trace detected. This network is restricted to verified operatives of the Neon Serpents.
+
+Your presence has been logged by the NeoCity Defense Grid.
+
+Data leaks indicate your coordinates are exposed through outdated encryption.
+
+Tracing active nodes… encryption keys compromised… neural signature exposed.
+
+Leave immediately — or proceed and accept assimilation into the network.
+
+Remaining time before lockdown: [TIMER]`;
+
+            let currentText = '';
+            let charIndex = 0;
+            let countdown = 7;
+            let timerStarted = false;
+
+            function getRandomDelay() {
+                // Random delays between 30-150ms with occasional longer pauses
+                return Math.random() < 0.9 ? 
+                    30 + Math.random() * 120 : 
+                    200 + Math.random() * 300;
+            }
+
+            function updateTimer() {
+                const timerRegex = /\[TIMER\]/g;
+                return currentText.replace(timerRegex, `<span class="timer">${countdown}s</span>`);
+            }
+
+            function applyGlitch(text) {
+                // Randomly apply glitch effect to some words
+                return text.replace(/WARNING|UNAUTHORIZED|DETECTED|RESTRICTED|LOGGED|EXPOSED|LOCKDOWN/gi, 
+                    match => `<span class="glitch warning">${match}</span>`);
+            }
+
+            function typeChar() {
+                if (charIndex < message.length) {
+                    currentText += message[charIndex];
+                    
+                    // Occasionally skip rendering a character (imperfect typing)
+                    if (Math.random() > 0.05) {
+                        let displayText = updateTimer();
+                        displayText = applyGlitch(displayText);
+                        element.innerHTML = displayText;
+                    }
+                    
+                    charIndex++;
+                    
+                    // Start countdown when [TIMER] appears in text
+                    if (!timerStarted && currentText.includes('[TIMER]')) {
+                        timerStarted = true;
+                        startCountdown();
+                    }
+                    
+                    setTimeout(typeChar, getRandomDelay());
+                } else {
+                    // Ensure timer keeps updating even after typing is done
+                    if (!timerStarted) {
+                        timerStarted = true;
+                        startCountdown();
+                    }
+                }
+            }
+
+            function startCountdown() {
+                const timerInterval = setInterval(() => {
+                    countdown--;
+                    let displayText = updateTimer();
+                    displayText = applyGlitch(displayText);
+                    element.innerHTML = displayText;
+                    
+                    if (countdown <= 0) {
+                        clearInterval(timerInterval);
+                        // Redirect to landing page
+                        setTimeout(() => {
+                            window.location.href = 'landing.html';
+                        }, 500);
+                    }
+                }, 1000);
+            }
+
+            // Start typing animation
+            typeChar();
+        })();
+    </script>
+</body>
+</html>
