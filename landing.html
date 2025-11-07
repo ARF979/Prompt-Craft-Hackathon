@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoCity Recruitment Brief - Neon Serpents</title>
+    <style>
+        /* ========== BASE RESET & FONTS ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: linear-gradient(135deg, #0a0015 0%, #1a0033 50%, #000000 100%);
+            color: #00ffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ========== SCANLINE OVERLAY ========== */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 255, 0.03),
+                rgba(0, 255, 255, 0.03) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1000;
+            animation: scanline-scroll 8s linear infinite;
+        }
+
+        @keyframes scanline-scroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(20px); }
+        }
+
+        /* ========== MAIN CONTAINER ========== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+            animation: page-entrance 1.2s ease-out;
+        }
+
+        @keyframes page-entrance {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== HEADER ========== */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid #ff00ff;
+            box-shadow: 0 4px 20px rgba(255, 0, 255, 0.3);
+        }
+
+        header h1 {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+            letter-spacing: 0.1em;
+            animation: glitch-title 3s infinite;
+        }
+
+        @keyframes glitch-title {
+            0%, 90%, 100% {
+                transform: translate(0);
+                text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+            }
+            92% {
+                transform: translate(-2px, 2px);
+                text-shadow: 2px 0 #00ffff, -2px 0 #ff00ff;
+            }
+            94% {
+                transform: translate(2px, -2px);
+                text-shadow: -2px 0 #00ffff, 2px 0 #ff00ff;
+            }
+            96% {
+                transform: translate(-2px, -2px);
+                text-shadow: 2px 2px #00ffff, -2px -2px #ff00ff;
+            }
+        }
+
+        header .subtitle {
+            font-size: 1rem;
+            color: #00ffff;
+            margin-top: 0.5rem;
+            opacity: 0.8;
+        }
+
+        /* ========== MAIN CONTENT GRID ========== */
+        main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 968px) {
+            main {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* ========== LEFT COLUMN: BRIEFING ========== */
+        .briefing-column {
+            animation: slide-in-left 1s ease-out 0.3s backwards;
+        }
+
+        @keyframes slide-in-left {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .briefing-column h2 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: #ff00ff;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            line-height: 1.4;
+            text-shadow: 0 0 8px #ff00ff;
+            animation: glitch-heading 4s infinite;
+        }
+
+        @keyframes glitch-heading {
+            0%, 95%, 100% {
+                transform: translate(0);
+            }
+            96% {
+                transform: translate(-1px, 1px);
+                text-shadow: 1px 0 #00ffff, -1px 0 #ff00ff;
+            }
+            98% {
+                transform: translate(1px, -1px);
+                text-shadow: -1px 0 #00ffff, 1px 0 #ff00ff;
+            }
+        }
+
+        .briefing-column p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #00ffff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        .briefing-column .how-to-proceed {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #00ffff;
+            border-radius: 8px;
+            background: rgba(0, 255, 255, 0.05);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .briefing-column .how-to-proceed h3 {
+            color: #ff00ff;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            text-shadow: 0 0 8px #ff00ff;
+        }
+
+        .briefing-column .how-to-proceed ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .briefing-column .how-to-proceed li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .briefing-column .how-to-proceed li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #ff00ff;
+            font-weight: bold;
+        }
+
+        /* ========== RIGHT COLUMN: ANIMATED VISUAL ========== */
+        .visual-column {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: slide-in-right 1s ease-out 0.5s backwards;
+        }
+
+        @keyframes slide-in-right {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animated-card {
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 255, 255, 0.1));
+            border: 2px solid #ff00ff;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.5), 0 0 60px rgba(0, 255, 255, 0.3);
+            animation: pulse-card 3s ease-in-out infinite;
+            overflow: hidden;
+        }
+
+        @keyframes pulse-card {
+            0%, 100% {
+                box-shadow: 0 0 30px rgba(255, 0, 255, 0.5), 0 0 60px rgba(0, 255, 255, 0.3);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(255, 0, 255, 0.8), 0 0 100px rgba(0, 255, 255, 0.6);
+                transform: scale(1.02);
+            }
+        }
+
+        /* Glitch overlay on card */
+        .animated-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 0, 255, 0.3),
+                transparent
+            );
+            animation: glitch-sweep 4s infinite;
+        }
+
+        @keyframes glitch-sweep {
+            0%, 100% { left: -100%; }
+            50% { left: 100%; }
+        }
+
+        /* Grid pattern inside card */
+        .animated-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: grid-scroll 10s linear infinite;
+        }
+
+        @keyframes grid-scroll {
+            from { transform: translate(0, 0); }
+            to { transform: translate(20px, 20px); }
+        }
+
+        /* Center logo/text in card */
+        .card-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .card-content h3 {
+            font-size: 2rem;
+            color: #ff00ff;
+            text-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff;
+            margin-bottom: 1rem;
+            animation: glow-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .card-content p {
+            color: #00ffff;
+            font-size: 1rem;
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+        }
+
+        /* ========== CTA BUTTON SECTION ========== */
+        .cta-section {
+            text-align: center;
+            margin-top: 3rem;
+            animation: fade-in-up 1.5s ease-out 0.7s backwards;
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: #000;
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 40px rgba(255, 0, 255, 0.6);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.9), 0 0 60px rgba(255, 0, 255, 0.9);
+        }
+
+        /* Scanline shimmer on hover */
+        .cta-button::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .cta-button:hover::before {
+            animation: shimmer 0.7s;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        /* Click animation */
+        .cta-button.clicked {
+            animation: button-click 0.7s ease-out;
+        }
+
+        @keyframes button-click {
+            0% { transform: scale(1); }
+            50% { 
+                transform: scale(0.95);
+                box-shadow: 0 0 50px rgba(0, 255, 255, 1), 0 0 100px rgba(255, 0, 255, 1);
+            }
+            100% { 
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* ========== ACCESSIBILITY ========== */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Header Section -->
+        <header>
+            <h1>Neon Serpents</h1>
+            <p class="subtitle">Covert Operations Network / NeoCity Division</p>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main>
+            <!-- Left Column: Briefing Content -->
+            <section class="briefing-column">
+                <h2>Transmission: NeoCity Recruitment Brief</h2>
+                <p>
+                    Operative candidates: NeoCity infrastructures are being harvested nightly by corporate harvesters. 
+                    The Neon Serpents are assembling a covert task force to infiltrate, extract, and redistribute 
+                    critical data shards to the network.
+                </p>
+                <p>
+                    Applicants must demonstrate subtlety, codecraft, and ethical ambiguity. Your initiation will test 
+                    logic, stealth decisions, and adaptability. Complete the initiation to receive an assignment role.
+                </p>
+
+                <!-- How to Proceed Section -->
+                <div class="how-to-proceed">
+                    <h3>How to Proceed</h3>
+                    <ul>
+                        <li>Review the mission parameters above</li>
+                        <li>Prepare your neural signature for authentication</li>
+                        <li>Click "Begin Initiation" to start the application process</li>
+                        <li>Complete all challenges to receive your role assignment</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Right Column: Animated Visual -->
+            <section class="visual-column" aria-label="Decorative animated display">
+                <div class="animated-card">
+                    <div class="card-content">
+                        <h3>SECURE NETWORK</h3>
+                        <p>⬢ ENCRYPTED ⬢</p>
+                        <p>⬡ GRID ONLINE ⬡</p>
+                        <p>◬ AWAITING INPUT ◬</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <button class="cta-button" id="ctaButton" aria-label="Begin recruitment initiation process">
+                Begin Initiation
+            </button>
+        </section>
+
+    </div>
+
+    <!-- JavaScript for CTA button click animation and redirect -->
+    <script>
+        (function() {
+            'use strict';
+
+            const ctaButton = document.getElementById('ctaButton');
+
+            ctaButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Add click animation class
+                ctaButton.classList.add('clicked');
+                
+                // Redirect after animation completes
+                setTimeout(function() {
+                    window.location.href = 'apply.html';
+                }, 700);
+            });
+
+            // Optional: Add keyboard accessibility
+            ctaButton.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    ctaButton.click();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

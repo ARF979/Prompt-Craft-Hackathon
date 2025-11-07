@@ -315,10 +315,10 @@ Leave immediately — or proceed and accept assimilation.`;
             }
 
             function getRandomDelay() {
-                // Faster typing: 20-60ms with occasional longer pauses
-                return Math.random() < 0.92 ? 
-                    20 + Math.random() * 40 : 
-                    100 + Math.random() * 150;
+                // Much faster typing: 10-30ms with occasional longer pauses
+                return Math.random() < 0.95 ? 
+                    10 + Math.random() * 20 : 
+                    50 + Math.random() * 100;
             }
 
             function updateDisplay() {
@@ -358,9 +358,14 @@ Leave immediately — or proceed and accept assimilation.`;
                     const checkTimer = setInterval(() => {
                         if (countdown <= 0) {
                             clearInterval(checkTimer);
+                            
+                            // Show redirecting message
+                            currentText += '\n\n>> REDIRECTING TO SECURE CHANNEL...';
+                            updateDisplay();
+                            
                             setTimeout(() => {
                                 window.location.href = 'landing.html';
-                            }, 1500); // 1.5 second delay after timer ends
+                            }, 1500); // 1.5 second delay after showing redirect message
                         }
                     }, 100);
                 }
