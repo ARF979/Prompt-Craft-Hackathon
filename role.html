@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transmission Complete - Neon Serpents</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=PT+Mono&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PT Mono', monospace;
+            background: linear-gradient(135deg, #000000 0%, #1a0033 50%, #000000 100%);
+            color: #00ffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Scanline effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 255, 0.03) 0px,
+                rgba(0, 255, 255, 0.03) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1000;
+            animation: scanlines 8s linear infinite;
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+
+        /* Rotating symbol background */
+        .rotating-symbol {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30vw;
+            opacity: 0.1;
+            animation: rotateGlow 20s linear infinite;
+            filter: blur(3px);
+            z-index: 1;
+        }
+
+        @keyframes rotateGlow {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+                filter: blur(3px) drop-shadow(0 0 40px rgba(0, 255, 255, 0.4));
+            }
+            50% {
+                filter: blur(3px) drop-shadow(0 0 80px rgba(255, 0, 255, 0.6));
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+                filter: blur(3px) drop-shadow(0 0 40px rgba(0, 255, 255, 0.4));
+            }
+        }
+
+        /* Main content container */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 800px;
+            padding: 3rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Transmission header */
+        .transmission {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            color: #00ffff;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            animation: glitchText 3s infinite;
+        }
+
+        @keyframes glitchText {
+            0%, 90%, 100% {
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            }
+            92% {
+                text-shadow: 
+                    -2px 0 rgba(255, 0, 255, 0.8),
+                    2px 0 rgba(0, 255, 255, 0.8);
+            }
+            94% {
+                text-shadow: 
+                    2px 0 rgba(255, 0, 255, 0.8),
+                    -2px 0 rgba(0, 255, 255, 0.8);
+            }
+        }
+
+        /* Role display */
+        .role-container {
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .role-label {
+            font-family: 'PT Mono', monospace;
+            font-size: 1rem;
+            color: #999;
+            margin-bottom: 1rem;
+            letter-spacing: 0.2em;
+        }
+
+        .role-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            animation: roleReveal 1.5s ease-out, rolePulse 3s ease-in-out infinite 1.5s;
+            position: relative;
+        }
+
+        @keyframes roleReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+                filter: blur(10px);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes rolePulse {
+            0%, 100% {
+                filter: brightness(1);
+            }
+            50% {
+                filter: brightness(1.3);
+            }
+        }
+
+        .role-icon {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 1.5rem;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Clearance message */
+        .clearance-msg {
+            font-family: 'PT Mono', monospace;
+            font-size: 1rem;
+            color: #00ffff;
+            margin-top: 2rem;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+        }
+
+        /* Decorative lines */
+        .divider {
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            margin: 2rem auto;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Return button */
+        .return-btn {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 1.2rem 3rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #000;
+            background: #00ffff;
+            border: 2px solid #00ffff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+
+        .return-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: #ff00ff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .return-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .return-btn:hover {
+            color: #fff;
+            border-color: #ff00ff;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.6);
+        }
+
+        .return-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .return-btn:focus {
+            outline: 3px solid #ff00ff;
+            outline-offset: 3px;
+        }
+
+        .return-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Error state */
+        .error-msg {
+            color: #ff0066;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            .transmission {
+                font-size: 0.9rem;
+            }
+
+            .role-name {
+                font-size: 3rem;
+            }
+
+            .role-icon {
+                font-size: 3rem;
+            }
+
+            .rotating-symbol {
+                font-size: 50vw;
+            }
+
+            .return-btn {
+                padding: 1rem 2rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Glowing particles effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00ffff;
+            border-radius: 50%;
+            animation: particleFloat linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(0) translateX(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) translateX(var(--drift));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Rotating symbol background -->
+    <div class="rotating-symbol" id="symbolBg">🐍</div>
+
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Main content -->
+    <div class="container">
+        <div class="transmission">TRANSMISSION COMPLETE</div>
+        
+        <div class="divider"></div>
+        
+        <div class="role-container">
+            <div class="role-label">ASSIGNED ROLE:</div>
+            <div class="role-icon" id="roleIcon">👁️</div>
+            <div class="role-name" id="roleName">GHOST</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="clearance-msg">
+            Your clearance level has been updated.
+        </div>
+        
+        <a href="landing.html" class="return-btn">
+            <span>Return to Network</span>
+        </a>
+    </div>
+
+    <script>
+        // Role data mapping
+        const roleData = {
+            ghost: {
+                name: 'GHOST',
+                icon: '👁️',
+                symbol: '👁️'
+            },
+            venom: {
+                name: 'VENOM',
+                icon: '🐍',
+                symbol: '⚡'
+            },
+            prophet: {
+                name: 'PROPHET',
+                icon: '🔮',
+                symbol: '🧠'
+            }
+        };
+
+        // Get role from localStorage
+        const storedRole = localStorage.getItem('neonserpents_role');
+        
+        if (storedRole && roleData[storedRole]) {
+            const role = roleData[storedRole];
+            document.getElementById('roleName').textContent = role.name;
+            document.getElementById('roleIcon').textContent = role.icon;
+            document.getElementById('symbolBg').textContent = role.symbol;
+        } else {
+            // Fallback if no role found
+            document.getElementById('roleName').innerHTML = '<span class="error-msg">NO ROLE ASSIGNED</span>';
+            document.getElementById('roleIcon').textContent = '⚠️';
+            document.getElementById('symbolBg').textContent = '⚠️';
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random position
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + 'vh';
+                
+                // Random animation duration and delay
+                const duration = 10 + Math.random() * 20;
+                const delay = Math.random() * 5;
+                particle.style.animationDuration = duration + 's';
+                particle.style.animationDelay = delay + 's';
+                
+                // Random horizontal drift
+                const drift = (Math.random() - 0.5) * 100;
+                particle.style.setProperty('--drift', drift + 'px');
+                
+                // Random color variation
+                if (Math.random() > 0.7) {
+                    particle.style.background = '#ff00ff';
+                }
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize
+        createParticles();
+
+        // Keyboard accessibility
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && document.activeElement.classList.contains('return-btn')) {
+                window.location.href = 'landing.html';
+            }
+        });
+    </script>
+</body>
+</html>
