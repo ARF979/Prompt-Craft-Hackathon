@@ -1,0 +1,113 @@
+NEON SERPENTS RECRUITMENT PORTAL - COMPLETE PROMPT LIST
+========================================================
+
+This document contains all prompts used to build the cyberpunk recruitment portal.
+Each prompt is numbered and can be used independently or in sequence.
+
+
+PROMPT 1: Initial Project Setup
+--------------------------------
+Build a recruitment portal for one such gang: an immersive cyberpunk website where users can apply, prove their worth, and get assigned a gang role based on their choices or traits. Design a site that feels alive — glowing interfaces, glitchy transitions, mysterious lore — no real backend needed, just pure aesthetic and interactivity.
+
+
+PROMPT 2: Page 1 - Terminal Intro Screen
+-----------------------------------------
+Create an intro screen in HTML, CSS, and JavaScript styled like a hacker terminal with a 7-second countdown timer that auto-redirects to the next page. Use neon cyan (#00ffff) and magenta (#ff00ff) colors on a dark background. Add a glitch effect and CRT scanlines. The page should display "INITIALIZING SECURE CONNECTION..." with a typewriter effect, then show the countdown prominently in the top-right corner. After 7 seconds, automatically redirect to landing.html.
+
+
+PROMPT 3: Page 1 Refinement - Timer Visibility
+-----------------------------------------------
+Separate the countdown timer from the typewriter text. Place it in a fixed position at the top-right corner with larger font size and glowing effect so it's always visible and easy to read.
+
+
+PROMPT 4: Page 1 Polish - Text and Effects
+-------------------------------------------
+Replace the aggressive screen shake with a subtle distortion effect using hue-rotation and brightness filters. Condense the briefing text to be more punchy and cyberpunk - use a shorter message like "Corporate syndicates harvest NeoCity nightly..." Make all text more concise and in-universe.
+
+
+PROMPT 5: Page 2 - Landing Page
+--------------------------------
+Create a static HTML page named `landing.html` that serves as Page 2 of a cyberpunk recruitment portal. Use a two-column layout: left side has recruitment brief text explaining the Neon Serpents gang, right side has an interactive cyberpunk card. Use the same neon color scheme (cyan/magenta), add glitch text effects on headers, and include a CTA button linking to apply.html.
+
+
+PROMPT 6: Page 2 Enhancement - CodePen Integration
+---------------------------------------------------
+Integrate these CodePen effects into landing.html:
+- Glitch text effect with RGB separation and clip-path
+- Neon button with animated glowing borders
+- Cyberpunk card with circuit paths, digital rain effect, 3D mouse tracking, and click-to-reveal holographic data panel
+
+
+PROMPT 7: Page 3 - Application Test (Part 1)
+---------------------------------------------
+Create a complete `apply.html` static page (single file) for a cyberpunk recruitment portal initiation test. Include:
+- 4 questions total (3 multiple choice, 1 puzzle)
+- Questions test stealth, data skills, and strategy
+- Puzzle: arrange symbols in correct sequence by clicking to cycle through options
+- Score answers and assign role (Ghost, Venom, or Prophet)
+- Save progress to localStorage
+- Same neon cyberpunk aesthetic
+
+
+PROMPT 8: Page 3 - Application Test (Part 2 - Questions)
+---------------------------------------------------------
+Use these specific questions:
+1. Access node found — choices: Copy (A), Crack (B), Sell (C)
+2. Detected during run — choices: Delete & run (A), Upload false logs (B), Hold & dump (C)
+3. Puzzle: arrange icons in canonical order: mask → spike → eye (click-to-cycle)
+4. Leak for neighborhood — choices: Leak now (A), Wait (B), Refuse (C)
+
+
+PROMPT 9: Page 3 - Scoring System
+----------------------------------
+Implement scoring matrix:
+- Ghost (stealth): Q1-A +2, Q2-A +3, Q3-correct +2, Q4-A +1
+- Venom (data): Q1-B +3, Q2-B +3, Q3-correct +1, Q4-B +2
+- Prophet (strategy): Q1-C +2, Q2-C +2, Q3-correct +1, Q4-C +3
+
+Keep three counters (ghost, venom, prophet). Add points per matrix. After Q4 or submit: compute max and display role. Save to localStorage key 'neonserpents_initiation'. Tie-breaker: choose Ghost by default.
+
+
+PROMPT 10: Page 3 - Tactile Interactions
+-----------------------------------------
+Refine the JS and CSS to make interactions feel tactile and cyberpunk. Add:
+- Smooth card flip with perspective when moving between questions
+- Small haptic-like button press animation (scale down then rebound)
+- When role is revealed, show a 1.2s 'processing' sequence with fake progress bar and terminal logs animating, then show role card with glitch entrance
+
+
+PROMPT 11: Page 3 - Content Polish
+-----------------------------------
+Polish the question copy and role descriptions to be punchy, in-universe, and concise. Use the Neon Serpents voice: dark, sly, and recruiting. Keep each role description to 2 sentences. Add one-line flavor text for each choice option (e.g., "Copy and vanish — the silent shadow's move.").
+
+
+PROMPT 12: Page 3 - Accessibility Features
+-------------------------------------------
+Add accessibility polish:
+- Use ARIA roles for question list: role="radiogroup", role="radio"
+- Keyboard nav: arrow keys to move between choices, Enter to select
+- Contrasting text sizes and visible focus outlines
+- Make role reveal modal trap focus and return focus on close
+- Provide alt text for icons and non-text UI
+
+
+PROMPT 13: Page 4 - Role Confirmation
+--------------------------------------
+Create `role.html` that reads the stored role from localStorage key 'neonserpents_role' and displays a full-screen message:
+
+"TRANSMISSION COMPLETE
+Assigned Role: [ROLE]
+Your clearance level has been updated."
+
+Use same neon theme, add a glowing rotating symbol behind the text, and a 'Return to Network' button linking back to landing.html.
+
+
+========================================================
+END OF PROMPTS
+
+Total: 13 prompts
+Project: Neon Serpents Cyberpunk Recruitment Portal
+Files Created: index.html, landing.html, apply.html, role.html
+Tech Stack: HTML5, CSS3, Vanilla JavaScript (no frameworks)
+Features: Terminal effects, glitch animations, accessibility, localStorage persistence
+========================================================
