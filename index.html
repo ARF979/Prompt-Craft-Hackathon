@@ -109,6 +109,58 @@
             z-index: 1;
             white-space: pre-wrap;
             word-wrap: break-word;
+            padding: 3em 2em;
+            font-size: 1.3em;
+            text-align: left;
+            line-height: 1.8;
+        }
+
+        /* Timer display at top right */
+        .timer-display {
+            position: fixed;
+            top: 2em;
+            right: 2em;
+            z-index: 10;
+            color: #ffff00;
+            font-weight: bold;
+            font-size: 2em;
+            text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00, 0 0 30px #ffff00;
+            border: 2px solid #ffff00;
+            padding: 0.5em 1em;
+            border-radius: 0.3em;
+            background: rgba(3, 30, 17, 0.8);
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .timer-label {
+            font-size: 0.5em;
+            display: block;
+            color: #14fdce;
+            margin-bottom: 0.2em;
+        }
+
+        /* Screen distortion effect */
+        @keyframes screen-distort {
+            0% {
+                filter: hue-rotate(0deg) brightness(1);
+            }
+            25% {
+                filter: hue-rotate(5deg) brightness(1.1);
+            }
+            50% {
+                filter: hue-rotate(-5deg) brightness(0.9);
+            }
+            75% {
+                filter: hue-rotate(3deg) brightness(1.05);
+            }
+            100% {
+                filter: hue-rotate(0deg) brightness(1);
+            }
+        }
+
+        .screen.glitch-active {
+            animation: screen-distort 0.2s ease-in-out;
         }
 
         /* Glitch text effect */
@@ -159,16 +211,53 @@
             font-weight: bold;
         }
 
-        .timer {
-            color: #ffff00;
-            font-weight: bold;
-            font-size: 1.2em;
+
+
+        /* RGB split effect */
+        @keyframes rgb-split {
+            0% {
+                text-shadow: 0 0 0 red, 0 0 0 blue;
+            }
+            25% {
+                text-shadow: -2px 0 0 red, 2px 0 0 blue;
+            }
+            50% {
+                text-shadow: -4px 0 0 red, 4px 0 0 blue;
+            }
+            75% {
+                text-shadow: -2px 0 0 red, 2px 0 0 blue;
+            }
+            100% {
+                text-shadow: 0 0 0 red, 0 0 0 blue;
+            }
+        }
+
+        .rgb-glitch {
+            animation: rgb-split 0.5s ease-in-out;
+        }
+
+        /* Pulse effect for important text */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .pulse {
+            animation: pulse 1s ease-in-out infinite;
         }
     </style>
 </head>
 <body>
     <div class="terminal">
         <div class="screen">
+            <div class="timer-display">
+                <span class="timer-label">LOCKDOWN</span>
+                <span id="timer">7s</span>
+            </div>
             <div class="content"></div>
         </div>
     </div>
@@ -178,90 +267,107 @@
             'use strict';
 
             const element = document.querySelector('.content');
-            const message = `⚠️ WARNING: Unauthorized access to the NeoCity network detected. Disconnect immediately.
+            const screen = document.querySelector('.screen');
+            const timerDisplay = document.getElementById('timer');
+            const message = `⚠️ WARNING: Unauthorized access detected.
 
-Neural trace detected. This network is restricted to verified operatives of the Neon Serpents.
+Neural trace identified. This network is restricted to verified operatives of the Neon Serpents.
 
 Your presence has been logged by the NeoCity Defense Grid.
 
-Data leaks indicate your coordinates are exposed through outdated encryption.
+Encryption keys compromised… neural signature exposed.
 
-Tracing active nodes… encryption keys compromised… neural signature exposed.
-
-Leave immediately — or proceed and accept assimilation into the network.
-
-Remaining time before lockdown: [TIMER]`;
+Leave immediately — or proceed and accept assimilation.`;
 
             let currentText = '';
             let charIndex = 0;
             let countdown = 7;
-            let timerStarted = false;
+            let timerInterval = null;
+            let typingComplete = false;
 
-            function getRandomDelay() {
-                // Random delays between 30-150ms with occasional longer pauses
-                return Math.random() < 0.9 ? 
-                    30 + Math.random() * 120 : 
-                    200 + Math.random() * 300;
+            // Screen glitch effect - subtle color distortion
+            function triggerScreenGlitch() {
+                if (Math.random() < 0.08) { // 8% chance - less frequent
+                    screen.classList.add('glitch-active');
+                    setTimeout(() => {
+                        screen.classList.remove('glitch-active');
+                    }, 200);
+                }
             }
 
-            function updateTimer() {
-                const timerRegex = /\[TIMER\]/g;
-                return currentText.replace(timerRegex, `<span class="timer">${countdown}s</span>`);
+            // Start timer immediately
+            function startTimer() {
+                timerInterval = setInterval(() => {
+                    countdown--;
+                    timerDisplay.textContent = countdown + 's';
+                    
+                    if (countdown <= 3) {
+                        timerDisplay.style.color = '#ff0040';
+                        timerDisplay.style.textShadow = '0 0 10px #ff0040, 0 0 20px #ff0040, 0 0 30px #ff0040';
+                        timerDisplay.parentElement.style.borderColor = '#ff0040';
+                    }
+                    
+                    if (countdown <= 0) {
+                        clearInterval(timerInterval);
+                        timerDisplay.textContent = 'LOCKED';
+                    }
+                }, 1000);
+            }
+
+            function getRandomDelay() {
+                // Faster typing: 20-60ms with occasional longer pauses
+                return Math.random() < 0.92 ? 
+                    20 + Math.random() * 40 : 
+                    100 + Math.random() * 150;
+            }
+
+            function updateDisplay() {
+                let displayText = applyGlitch(currentText);
+                element.innerHTML = displayText;
             }
 
             function applyGlitch(text) {
-                // Randomly apply glitch effect to some words
+                // Add RGB glitch randomly
+                const rgbClass = Math.random() < 0.1 ? ' rgb-glitch' : '';
+                
+                // Apply glitch effect to warning words
                 return text.replace(/WARNING|UNAUTHORIZED|DETECTED|RESTRICTED|LOGGED|EXPOSED|LOCKDOWN/gi, 
-                    match => `<span class="glitch warning">${match}</span>`);
+                    match => `<span class="glitch warning${rgbClass}">${match}</span>`);
             }
 
             function typeChar() {
                 if (charIndex < message.length) {
                     currentText += message[charIndex];
                     
-                    // Occasionally skip rendering a character (imperfect typing)
-                    if (Math.random() > 0.05) {
-                        let displayText = updateTimer();
-                        displayText = applyGlitch(displayText);
-                        element.innerHTML = displayText;
+                    // Occasionally skip rendering for imperfect effect
+                    if (Math.random() > 0.03) {
+                        updateDisplay();
                     }
+                    
+                    // Random screen glitch
+                    triggerScreenGlitch();
                     
                     charIndex++;
-                    
-                    // Start countdown when [TIMER] appears in text
-                    if (!timerStarted && currentText.includes('[TIMER]')) {
-                        timerStarted = true;
-                        startCountdown();
-                    }
-                    
                     setTimeout(typeChar, getRandomDelay());
                 } else {
-                    // Ensure timer keeps updating even after typing is done
-                    if (!timerStarted) {
-                        timerStarted = true;
-                        startCountdown();
-                    }
+                    // Typing complete
+                    typingComplete = true;
+                    updateDisplay();
+                    
+                    // Wait for timer to finish, then redirect after 1-2s
+                    const checkTimer = setInterval(() => {
+                        if (countdown <= 0) {
+                            clearInterval(checkTimer);
+                            setTimeout(() => {
+                                window.location.href = 'landing.html';
+                            }, 1500); // 1.5 second delay after timer ends
+                        }
+                    }, 100);
                 }
             }
 
-            function startCountdown() {
-                const timerInterval = setInterval(() => {
-                    countdown--;
-                    let displayText = updateTimer();
-                    displayText = applyGlitch(displayText);
-                    element.innerHTML = displayText;
-                    
-                    if (countdown <= 0) {
-                        clearInterval(timerInterval);
-                        // Redirect to landing page
-                        setTimeout(() => {
-                            window.location.href = 'landing.html';
-                        }, 500);
-                    }
-                }, 1000);
-            }
-
-            // Start typing animation
+            // Start timer and typing simultaneously
+            startTimer();
             typeChar();
         })();
     </script>
