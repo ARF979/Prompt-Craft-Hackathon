@@ -80,27 +80,55 @@
         header h1 {
             font-size: clamp(1.5rem, 5vw, 3rem);
             color: #ff00ff;
-            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00;
             letter-spacing: 0.1em;
-            animation: glitch-title 3s infinite;
+            animation: glitch-title 725ms infinite;
+            position: relative;
+        }
+
+        header h1 .glitch-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        header h1 .glitch-layer:first-child {
+            animation: glitch-title 500ms infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+            transform: translate(-0.04em, -0.03em);
+            opacity: 0.75;
+        }
+
+        header h1 .glitch-layer:last-child {
+            animation: glitch-title 375ms infinite;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+            transform: translate(0.04em, 0.03em);
+            opacity: 0.75;
         }
 
         @keyframes glitch-title {
-            0%, 90%, 100% {
-                transform: translate(0);
-                text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+            0% {
+                text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00;
             }
-            92% {
-                transform: translate(-2px, 2px);
-                text-shadow: 2px 0 #00ffff, -2px 0 #ff00ff;
+            15% {
+                text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00;
             }
-            94% {
-                transform: translate(2px, -2px);
-                text-shadow: -2px 0 #00ffff, 2px 0 #ff00ff;
+            16% {
+                text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff, -0.05em -0.05em 0 #fffc00;
             }
-            96% {
-                transform: translate(-2px, -2px);
-                text-shadow: 2px 2px #00ffff, -2px -2px #ff00ff;
+            49% {
+                text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff, -0.05em -0.05em 0 #fffc00;
+            }
+            50% {
+                text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff, 0 -0.04em 0 #fffc00;
+            }
+            99% {
+                text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff, 0 -0.04em 0 #fffc00;
+            }
+            100% {
+                text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff, -0.04em -0.025em 0 #fffc00;
             }
         }
 
@@ -149,21 +177,52 @@
             text-transform: uppercase;
             letter-spacing: 0.15em;
             line-height: 1.4;
-            text-shadow: 0 0 8px #ff00ff;
-            animation: glitch-heading 4s infinite;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00;
+            animation: glitch-heading 725ms infinite;
+            position: relative;
+        }
+
+        .briefing-column h2 .glitch-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .briefing-column h2 .glitch-layer:first-child {
+            animation: glitch-heading 500ms infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+            transform: translate(-0.04em, -0.03em);
+            opacity: 0.75;
+        }
+
+        .briefing-column h2 .glitch-layer:last-child {
+            animation: glitch-heading 375ms infinite;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+            transform: translate(0.04em, 0.03em);
+            opacity: 0.75;
         }
 
         @keyframes glitch-heading {
-            0%, 95%, 100% {
-                transform: translate(0);
+            0% {
+                text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00;
             }
-            96% {
-                transform: translate(-1px, 1px);
-                text-shadow: 1px 0 #00ffff, -1px 0 #ff00ff;
+            15% {
+                text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00;
             }
-            98% {
-                transform: translate(1px, -1px);
-                text-shadow: -1px 0 #00ffff, 1px 0 #ff00ff;
+            16% {
+                text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff, -0.05em -0.05em 0 #fffc00;
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff, -0.05em -0.05em 0 #fffc00;
+            }
+            50% {
+                text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff, 0 -0.04em 0 #fffc00;
+            }
+            99% {
+                text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff, 0 -0.04em 0 #fffc00;
+            }
+            100% {
+                text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff, -0.04em -0.025em 0 #fffc00;
             }
         }
 
@@ -238,28 +297,54 @@
             background: linear-gradient(135deg, rgba(30, 30, 35, 0.9) 0%, rgba(15, 15, 20, 0.95) 100%);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            transform-style: preserve-3d;
+            /* Multiple glowing border layers */
+            box-shadow: 
+                0 0 10px rgba(0, 255, 255, 0.4),
+                0 0 20px rgba(0, 255, 255, 0.3),
+                0 0 40px rgba(255, 0, 102, 0.2),
+                0 0 80px rgba(255, 0, 102, 0.1),
+                inset 0 0 20px rgba(0, 255, 255, 0.05),
+                0 15px 35px rgba(0, 0, 0, 0.5);
+            transition: box-shadow 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             cursor: pointer;
             z-index: 1;
-            animation: cardReveal 1.5s forwards;
+            animation: cardReveal 1.5s forwards, glitchJitter 8s infinite;
+            will-change: box-shadow;
         }
 
         @keyframes cardReveal {
             0% {
-                transform: translateY(0) rotateY(180deg) scale(0.5);
+                transform: translateY(0) scale(0.5);
                 opacity: 0;
             }
-            30% {
-                transform: translateY(-30px) rotateY(180deg) scale(1.1);
-            }
             60% {
-                transform: translateY(-10px) rotateY(0deg) scale(1.05);
+                transform: translateY(-10px) scale(1.05);
             }
             100% {
-                transform: translateY(0) rotateY(0deg) scale(1);
+                transform: translateY(0) scale(1);
                 opacity: 1;
+            }
+        }
+
+        /* Gentle glitch jitter */
+        @keyframes glitchJitter {
+            0%, 90%, 92%, 94%, 96%, 98%, 100% {
+                transform: translateX(0);
+            }
+            91% {
+                transform: translateX(-2px);
+            }
+            93% {
+                transform: translateX(2px);
+            }
+            95% {
+                transform: translateX(-1px);
+            }
+            97% {
+                transform: translateX(1px);
+            }
+            99% {
+                transform: translateX(-0.5px);
             }
         }
 
@@ -270,12 +355,34 @@
             left: 0;
             width: 100%;
             height: 100%;
+            /* Diagonal lines with parallax */
             background: 
-                linear-gradient(90deg, rgba(0, 255, 255, 0.07) 1px, transparent 1px) 0 0 / 20px 20px,
-                linear-gradient(0deg, rgba(0, 255, 255, 0.07) 1px, transparent 1px) 0 0 / 20px 20px,
-                linear-gradient(90deg, rgba(255, 0, 102, 0.05) 1px, transparent 1px) 0 0 / 100px 100px,
-                linear-gradient(0deg, rgba(255, 0, 102, 0.05) 1px, transparent 1px) 0 0 / 100px 100px;
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(0, 255, 255, 0.03) 0px,
+                    rgba(0, 255, 255, 0.03) 1px,
+                    transparent 1px,
+                    transparent 10px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    rgba(255, 0, 102, 0.02) 0px,
+                    rgba(255, 0, 102, 0.02) 1px,
+                    transparent 1px,
+                    transparent 15px
+                );
             z-index: -1;
+            animation: parallaxDiagonal 20s linear infinite;
+            will-change: background-position;
+        }
+
+        @keyframes parallaxDiagonal {
+            from {
+                background-position: 0 0, 0 0;
+            }
+            to {
+                background-position: 0 200px, 0 -150px;
+            }
         }
 
         .cyberpunk-card::after {
@@ -285,13 +392,28 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 2px);
+            /* Scanline overlay */
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(255, 255, 255, 0.02),
+                rgba(255, 255, 255, 0.02) 1px,
+                transparent 1px,
+                transparent 3px
+            );
             pointer-events: none;
-            z-index: 4;
+            z-index: 10;
+            opacity: 0.4;
         }
 
         .cyberpunk-card:hover {
-            transform: translateY(-10px) rotateX(5deg);
+            /* Enhanced glow on hover */
+            box-shadow: 
+                0 0 15px rgba(0, 255, 255, 0.6),
+                0 0 30px rgba(0, 255, 255, 0.4),
+                0 0 60px rgba(255, 0, 102, 0.3),
+                0 0 120px rgba(255, 0, 102, 0.15),
+                inset 0 0 30px rgba(0, 255, 255, 0.1),
+                0 20px 50px rgba(0, 0, 0, 0.6);
         }
 
         .cyberpunk-card .sweep {
@@ -303,7 +425,7 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 0, 111, 0.2), transparent);
             transform: translateX(-100%);
-            transition: transform 0.6s;
+            transition: transform 0.8s ease-out;
             pointer-events: none;
             z-index: 2;
         }
@@ -581,56 +703,100 @@
             }
         }
 
+        .cta-subtext {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #ff0066;
+            text-shadow: 0 0 8px rgba(255, 0, 102, 0.6);
+            font-style: italic;
+            opacity: 0.9;
+        }
+
         .cta-button {
+            position: relative;
             display: inline-block;
             padding: 1.2rem 3rem;
             font-size: 1.3rem;
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
-            color: #000;
-            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            color: #00ffff;
+            background: transparent;
             border: none;
-            border-radius: 8px;
+            border-radius: 3px;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            position: relative;
+            letter-spacing: 0.2em;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 40px rgba(255, 0, 255, 0.6);
-            transition: all 0.3s ease;
             text-decoration: none;
+            transition: 0.2s;
         }
 
         .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.9), 0 0 60px rgba(255, 0, 255, 0.9);
+            color: #050f1a;
+            background: #00ffff;
+            box-shadow: 0 0 10px #00ffff, 0 0 40px #00ffff, 0 0 80px #00ffff;
+            transition-delay: 600ms;
         }
 
-        /* Scanline shimmer on hover */
-        .cta-button::before {
-            content: "";
+        /* Neon border animations */
+        .cta-button span {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
-            transform: rotate(45deg);
-            transition: all 0.5s;
+            display: block;
         }
 
-        .cta-button:hover::before {
-            animation: shimmer 0.7s;
+        .cta-button span:nth-child(1) {
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffff);
         }
 
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        .cta-button:hover span:nth-child(1) {
+            left: 100%;
+            transition: 600ms;
+        }
+
+        .cta-button span:nth-child(2) {
+            top: -100%;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, #00ffff);
+        }
+
+        .cta-button:hover span:nth-child(2) {
+            top: 100%;
+            transition: 1s;
+            transition-delay: 100ms;
+        }
+
+        .cta-button span:nth-child(3) {
+            bottom: 0;
+            right: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(270deg, transparent, #00ffff);
+        }
+
+        .cta-button:hover span:nth-child(3) {
+            right: 100%;
+            transition: 1s;
+            transition-delay: 250ms;
+        }
+
+        .cta-button span:nth-child(4) {
+            bottom: -100%;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(360deg, transparent, #00ffff);
+        }
+
+        .cta-button:hover span:nth-child(4) {
+            bottom: 100%;
+            transition: 1s;
+            transition-delay: 450ms;
         }
 
         /* Click animation */
@@ -670,7 +836,11 @@
         
         <!-- Header Section -->
         <header>
-            <h1>Neon Serpents</h1>
+            <h1>
+                <span class="glitch-layer" aria-hidden="true">Neon Serpents</span>
+                Neon Serpents
+                <span class="glitch-layer" aria-hidden="true">Neon Serpents</span>
+            </h1>
             <p class="subtitle">Covert Operations Network / NeoCity Division</p>
         </header>
 
@@ -678,15 +848,18 @@
         <main>
             <!-- Left Column: Briefing Content -->
             <section class="briefing-column">
-                <h2>Transmission: NeoCity Recruitment Brief</h2>
+                <h2>
+                    <span class="glitch-layer" aria-hidden="true">Transmission: NeoCity Recruitment Brief</span>
+                    Transmission: NeoCity Recruitment Brief
+                    <span class="glitch-layer" aria-hidden="true">Transmission: NeoCity Recruitment Brief</span>
+                </h2>
                 <p>
-                    Operative candidates: NeoCity infrastructures are being harvested nightly by corporate harvesters. 
-                    The Neon Serpents are assembling a covert task force to infiltrate, extract, and redistribute 
-                    critical data shards to the network.
+                    Corporate syndicates harvest NeoCity nightly. Data dies in vaults. The Neon Serpents need operatives 
+                    who can infiltrate, extract, and redistribute what was stolen from the network.
                 </p>
                 <p>
-                    Applicants must demonstrate subtlety, codecraft, and ethical ambiguity. Your initiation will test 
-                    logic, stealth decisions, and adaptability. Complete the initiation to receive an assignment role.
+                    We require subtlety, codecraft, and moral flexibility. Your initiation tests logic, stealth, and 
+                    adaptability under pressure. Complete it. Earn your role. Disappear into the grid.
                 </p>
 
                 <!-- How to Proceed Section -->
@@ -752,8 +925,13 @@
         <!-- CTA Section -->
         <section class="cta-section">
             <button class="cta-button" id="ctaButton" aria-label="Begin recruitment initiation process">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
                 Begin Initiation
             </button>
+            <p class="cta-subtext">Proceed only if you accept permanent shadow-status.</p>
         </section>
 
     </div>
@@ -873,9 +1051,8 @@
                 const x = (e.clientX - rect.left) / rect.width - 0.5;
                 const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-                card.style.transform = `translateY(-10px) rotateX(${y * 10}deg) rotateY(${
-                    x * -10
-                }deg)`;
+                // Subtle transform - no heavy 3D
+                card.style.transform = `translateY(-5px) rotateX(${y * 5}deg) rotateY(${x * -5}deg)`;
 
                 const glow = card.querySelector(".glow");
                 glow.style.background = `radial-gradient(circle at ${
@@ -903,7 +1080,7 @@
             });
 
             card.addEventListener("mouseleave", () => {
-                card.style.transform = "translateY(-10px) rotateX(5deg)";
+                card.style.transform = "translateY(0)";
 
                 document.querySelectorAll(".circuit-node").forEach((node) => {
                     node.setAttribute("r", 5);
